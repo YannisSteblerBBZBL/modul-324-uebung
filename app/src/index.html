@@ -1,11 +1,205 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>My Page</title>
+    <title>KIRKIVE — Das Charlie-Kirk-Meme-Museum</title>
+    <meta
+      name="description"
+      content="Professionelles Meme-Museum: Classic Kirk, Campus-Debatten, Zitate und schwarzer Humor. Prove me wrong."
+    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%230b0b0d' width='64' height='64'/%3E%3Crect x='10' y='28' width='44' height='6' fill='%23e7dcc8'/%3E%3Crect x='14' y='34' width='4' height='16' fill='%23e7dcc8'/%3E%3Crect x='46' y='34' width='4' height='16' fill='%23e7dcc8'/%3E%3Ctext x='32' y='24' text-anchor='middle' font-size='10' font-family='Georgia' fill='%239b1c1c'%3EPMW%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
   <body>
-    <h1>Hallo auf meiner Seite</h1>
+    <div class="grain" aria-hidden="true"></div>
+
+    <div id="gate" class="gate" hidden>
+      <div class="gate-card">
+        <p class="kicker">KIRKIVE · SATIRE</p>
+        <h2>Schwarzer Humor voraus.</h2>
+        <p>
+          Diese Ausstellung behandelt Charlie Kirk als Internet-Artefakt — inklusive Witzen über seinen Tod.
+          Wenn du das nicht willst, ist die Tür da hinten. Wenn doch: willkommen im Museum.
+        </p>
+        <div class="gate-actions">
+          <button class="btn btn-ghost" id="gate-leave" type="button">Ich gehe googlen</button>
+          <button class="btn btn-red" id="gate-enter" type="button">Einlass</button>
+        </div>
+      </div>
+    </div>
+
+    <header class="nav">
+      <a class="brand" href="#top">
+        <span class="brand-mark">KV</span>
+        <span class="brand-name">KIRKIVE</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#archive">Archiv</a>
+        <a href="#generator">Generator</a>
+        <a href="#soundboard">Soundboard</a>
+        <a href="#dark">Dark</a>
+      </nav>
+      <button class="btn btn-red btn-sm" id="random-btn" type="button">Zufall</button>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <img class="hero-img" src="assets/kirk-hero.jpg" alt="Campus, Klapptisch, Prove me wrong" />
+        <div class="hero-veil"></div>
+        <div class="hero-copy">
+          <p class="kicker">Museum für Internet-Rhetorik · Est. 2026</p>
+          <h1>PROVE ME<br />WRONG</h1>
+          <p class="lede">
+            45 kuratierte Charlie-Kirk-Memes. Classic, Debate, Zitate, Formate —
+            und eine dunkle Abteilung, die keine heilige Kuh übrig lässt.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-red" href="#archive">Ins Archiv</a>
+            <a class="btn btn-ghost" href="#generator">Meme bauen</a>
+          </div>
+        </div>
+        <dl class="hero-stats">
+          <div>
+            <dt>Exponate</dt>
+            <dd id="stat-count">45</dd>
+          </div>
+          <div>
+            <dt>Abteilung Dark</dt>
+            <dd id="stat-dark">12</dd>
+          </div>
+          <div>
+            <dt>Meme of the Day</dt>
+            <dd id="stat-day">—</dd>
+          </div>
+        </dl>
+      </section>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span>PROVE ME WRONG</span><span>TURNING MEME</span><span>SATIRE</span>
+          <span>SCHWARZER HUMOR</span><span>FACTS DON'T CARE</span><span>EMPTY CHAIR</span>
+          <span>CAMPUS DEBATE</span><span>KIRKIVE</span><span>PROVE ME WRONG</span>
+          <span>TURNING MEME</span><span>SATIRE</span><span>SCHWARZER HUMOR</span>
+          <span>FACTS DON'T CARE</span><span>EMPTY CHAIR</span><span>CAMPUS DEBATE</span>
+          <span>KIRKIVE</span>
+        </div>
+      </div>
+
+      <section class="featured" id="motd">
+        <div class="section-head">
+          <p class="kicker">Heute ausgestellt</p>
+          <h2>Meme of the Day</h2>
+        </div>
+        <div id="featured-slot"></div>
+      </section>
+
+      <section class="archive" id="archive">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Sammlung</p>
+            <h2>Das Archiv</h2>
+          </div>
+          <label class="search">
+            <span class="sr-only">Suchen</span>
+            <input id="search" type="search" placeholder="Suche Caption, Zitat, Dark…" />
+          </label>
+        </div>
+        <div class="filters" id="filters"></div>
+        <p class="result-meta" id="result-meta"></p>
+        <div class="grid" id="grid"></div>
+      </section>
+
+      <section class="generator" id="generator">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Werkstatt</p>
+            <h2>Meme-Generator</h2>
+          </div>
+          <p class="lede-sm">Bild wählen. Text tippen. Fertig.</p>
+        </div>
+
+        <div class="tpl-strip" id="tpl-strip"></div>
+
+        <div class="gen-dock">
+          <input id="gen-top-field" type="text" maxlength="80" placeholder="Text oben" autocomplete="off" value="PROVE ME WRONG" />
+          <input id="gen-bottom-field" type="text" maxlength="80" placeholder="Text unten" autocomplete="off" value="OKAY" />
+          <div class="gen-dock-actions">
+            <button class="btn btn-ghost" id="shuffle-captions" type="button">Würfeln</button>
+            <button class="btn btn-red" id="dl-btn" type="button">Download PNG</button>
+          </div>
+        </div>
+        <p class="hint" id="gen-status">Text oben und unten, Bild antippen, Download. Das war’s.</p>
+
+        <div class="meme-stage gen-stage" id="gen-stage" data-layout="classic">
+          <img id="gen-img" src="assets/kirk-closeup.jpg" alt="Meme-Vorschau" />
+          <label class="sr-only" for="gen-top">Text oben</label>
+          <textarea id="gen-top" class="meme-edit top" rows="2" maxlength="80" placeholder="TEXT OBEN">PROVE ME WRONG</textarea>
+          <label class="sr-only" for="gen-bottom">Text unten</label>
+          <textarea id="gen-bottom" class="meme-edit bottom" rows="2" maxlength="80" placeholder="TEXT UNTEN">OKAY</textarea>
+        </div>
+      </section>
+
+      <section class="soundboard" id="soundboard">
+        <div class="section-head">
+          <p class="kicker">Audio-Reliquien</p>
+          <h2>Soundboard</h2>
+        </div>
+        <p class="lede-sm">
+          Keine Original-Clips — synthetische Stimme, originale Energie. Lautsprecher an, Nachbarn aus.
+        </p>
+        <div class="pads" id="pads"></div>
+      </section>
+
+      <section class="dark-wing" id="dark">
+        <div class="dark-copy">
+          <p class="kicker">Westflügel</p>
+          <h2>Schwarzer Humor</h2>
+          <p>
+            Hier hängt, was nach September 2025 nicht mehr «edgy» sondern empirisch wurde:
+            der Klapptisch ohne Gast, das Zitat über «some gun deaths», die Debatte ohne Rückfahrkarte.
+            Wenn Satire ein Messer ist, ist das die ungespülte Klinge.
+          </p>
+          <a class="btn btn-ghost" href="#archive" id="dark-filter-link">Nur Dark zeigen</a>
+        </div>
+        <div class="dark-rail" id="dark-rail"></div>
+      </section>
+    </main>
+
+    <div class="lightbox" id="lightbox" hidden>
+      <button class="lightbox-close" id="lb-close" type="button" aria-label="Schliessen">×</button>
+      <div class="lightbox-stage" id="lb-stage"></div>
+      <div class="lightbox-meta">
+        <div>
+          <p class="kicker" id="lb-kicker"></p>
+          <h3 id="lb-title"></h3>
+          <p id="lb-plaque"></p>
+        </div>
+        <div class="lightbox-actions">
+          <button class="btn btn-ghost" id="lb-like" type="button">Like</button>
+          <button class="btn btn-ghost" id="lb-remix" type="button">Im Generator</button>
+          <button class="btn btn-red" id="lb-download" type="button">Download</button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div>
+        <strong>KIRKIVE</strong>
+        <p>Satire-Museum. Keine offizielle Institution. Kein Respekt vor heiligen Kühen.</p>
+      </div>
+      <p class="footer-note">
+        Charlie Kirk (1993–2025). Die Memes gehören dem Internet. Der schwarze Humor gehört niemandem —
+        und genau deshalb hängt er hier.
+      </p>
+    </footer>
+
+    <script type="module" src="app.js?v=4"></script>
   </body>
 </html>

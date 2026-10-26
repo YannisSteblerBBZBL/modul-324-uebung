@@ -7,5 +7,5 @@ LABEL service="myapp"
 
 # Copy the Nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-# Copy the HTML to the image
-COPY src/* /usr/share/nginx/html
+# Copy the site (html, css, js, assets)
+COPY src/ /usr/share/nginx/html/
