@@ -1,0 +1,37 @@
+services:
+  devcontainer:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    # Loop to not get down
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    # start nginx
+    # command: /usr/sbin/nginx -g "daemon off;"
+    working_dir: /workspace
+    container_name: devcontainer
+    init: true
+    ports:
+      - "3000:3000" # next and co
+      - "3001:3001"
+      - "4200:4200" # angular
+      - "1234:1234" # parcel
+      - "8080:80" # java (spring and co)
+    # INFO: auskommentieren, sobald "local" Ordner existiert
+    # env_file: ./local/.env
+    volumes:
+      # sync workspace
+      - .:/workspace:cached
+
+      # sync nginx files
+      # - ./nginx/src/:/usr/share/nginx/html
+      # - ./nginx/default:/etc/nginx/sites-available/default
+
+      # INFO: auskommentieren, sobald "local" Ordner existiert
+      # - ./local/aws:/root/.aws
+      # - ./local/ssh/id_rsa.pem:/root/.ssh/id_rsa.pem
+  production:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "3001:80"
